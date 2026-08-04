@@ -1,2 +1,9 @@
+# 에이전트/도구 로컬 설정
+.claude/
+.playwright-mcp/
+
+# 바인드 마운트 실습용 임시 디렉토리
 bindtest/
+
+# OS
 .DS_Store
