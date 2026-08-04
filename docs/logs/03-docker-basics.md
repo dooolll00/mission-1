@@ -1,6 +1,6 @@
 # 03. Docker 설치 점검 및 기본 운영 로그
 
-> Docker Desktop for Mac / Server 29.6.2
+> Docker Desktop for Mac / Server 29.4.0
 
 ## 1) 설치 점검
 
