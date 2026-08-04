@@ -197,12 +197,13 @@ important data
 |------|------|------|
 | 8080 접속 (주소창 포함) | [browser-8080-addressbar.png](/docs/images/browser-8080-addressbar.png) | ✅ |
 | 8081 접속 (주소창 포함) | [browser-8081-addressbar.png](/docs/images/browser-8081-addressbar.png) | ✅ |
+| VSCode GitHub 연동 | [vscode-github.png](docs/images/vscode-github.png) | ✅ 민감정보 노출 없음 확인 |
 
 ### 포트 매핑 접속 화면 (주소창 포함)
 
-![8080 접속](docs/images/browser-8080-addressbar.png) | ✅ |
-![8081 접속](docs/images/browser-8081-addressbar.png) | ✅ |
-| VSCode GitHub 연동 | [vscode-github.png](docs/images/vscode-github.png) | ✅ 민감정보 노출 없음 확인 |
+![8080 접속](docs/images/browser-8080-addressbar.png) 
+![8081 접속](docs/images/browser-8081-addressbar.png) 
+
 
 ### VSCode ↔ GitHub 연동
 
