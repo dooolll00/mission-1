@@ -7,19 +7,23 @@
 
 ```bash
 $ pwd
-/Users/newid/Project/mission-1
+/Users/dooolll5969/Project/mission-1
 
-$ mkdir -p /Users/newid/codyssey/practice
+$ mkdir -p /Users/dooolll5969/codyssey/practice
 
-$ cd /Users/newid/codyssey/practice
+$ cd /Users/dooolll5969/codyssey/practice
 
 $ pwd
-/Users/newid/codyssey/practice
+/Users/dooolll5969/codyssey/practice
 
 $ ls -la
-total 0
-drwxr-xr-x@ 2 newid  staff  64 Jul 27 21:28 .
-drwxr-xr-x@ 3 newid  staff  96 Jul 27 21:28 ..
+total 8
+drwxr-xr-x  6 dooolll5969  dooolll5969  192  8  4 14:55 .
+drwxr-xr-x  3 dooolll5969  dooolll5969   96  8  4 14:24 ..
+drwxr-xr-x  3 dooolll5969  dooolll5969   96  8  4 14:55 backup
+-rw-r--r--  1 dooolll5969  dooolll5969    0  8  4 14:54 notes.txt
+-rw-r--r--  1 dooolll5969  dooolll5969   15  8  4 14:31 secret.txt
+drwxr-xr-x  3 dooolll5969  dooolll5969   96  8  4 14:32 shared-dir
 ```
 
 ## 2) 파일 생성 (빈 파일 / 내용 있는 파일) · 내용 확인
