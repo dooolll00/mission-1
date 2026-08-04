@@ -14,7 +14,7 @@
 
 | 항목 | 값 |
 |------|-----|
-| OS | macOS 26.6 (Apple Silicon, arm64) |
+| OS | macOS 15.7.7 (Apple Silicon, arm64) |
 | Shell / 터미널 | zsh |
 | Docker | 29.6.2 (Docker Desktop for Mac, Compose v5.3.1) |
 | Git | 2.50.1 (Apple Git-155) |
