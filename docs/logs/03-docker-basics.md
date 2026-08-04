@@ -27,8 +27,6 @@ Client:
   ...
 ```
 
-> 참고: 최초 점검 시 `Cannot connect to the Docker daemon at unix:///Users/newid/.docker/run/docker.sock` 오류 발생 → Docker Desktop 기동으로 해결. 상세 내용은 [README 트러블슈팅 #1](../../README.md#8-트러블슈팅) 참조.
-
 ## 2) hello-world 실행
 
 ```bash
