@@ -20,7 +20,6 @@
 | Git | 2.50.1 (Apple Git-155) |
 | 편집기 | VSCode |
 
-> ⚠️ macOS 환경 주의: Docker는 Docker Desktop(내부 Linux VM) 위에서 동작합니다. Linux에서는 Docker Desktop 없이 데몬이 직접 실행되므로 트러블슈팅 #1이 재현되지 않을 수 있습니다. 그 외 모든 docker/git 명령은 OS와 무관하게 동일하게 재현됩니다.
 
 ## 3) 수행 항목 체크리스트
 
@@ -140,26 +139,57 @@ docker compose down
 
 ## 8) 트러블슈팅
 
-### #1. Docker 데몬 연결 실패
+### #1. Dockerfile 명령어를 터미널에서 실행하여 발생한 오류
 
-- **문제**: `docker info` 실행 시 `Cannot connect to the Docker daemon at unix:///Users/newid/.docker/run/docker.sock. Is the docker daemon running?`
-- **원인 가설**: CLI는 설치되어 있으나 데몬(Docker Desktop)이 실행 중이 아님.
-- **확인**: macOS에서 Docker 데몬은 Docker Desktop의 Linux VM 안에서 돌기 때문에, 앱이 꺼져 있으면 소켓 파일에 연결할 수 없다.
-- **해결**: Docker Desktop 실행(`open -a Docker`) 후 재시도 → `docker info`가 Server 29.6.2 정상 응답. ([로그 03](docs/logs/03-docker-basics.md))
+- **문제**: `FROM nginx:alpine` 명령어를 터미널에서 실행하여 `zsh: command not found: FROM` 오류가 발생.
 
-### #2. 셸 훅(rtk)에 의한 명령 재작성으로 `ls` 실패
+```bash
+$ FROM nginx:alpine
+zsh: command not found: FROM
+```
+- **원인**: `FROM`은 터미널 명령어가 아니라 Dockerfile 내부에서 사용하는 Docker 명령어인데, 실행 위치를 혼동하여 zsh에서 실행했기 때문.
+- **확인**: Dockerfile을 수정한 뒤 `docker build -t mission1-web:1.0 .` 명령을 실행하여 이미지가 정상적으로 생성되었고, 컨테이너 실행 후 `http://localhost:8080`에서 웹 페이지가 정상적으로 출력되며 Health Check 상태가 `healthy`인 것을 확인. 
+- **해결**: Dockerfile 명령어는 Dockerfile 내부에 작성하고, 이미지는 `docker build` 명령으로 생성하도록 작업 절차를 수정했다.
 
-- **문제**: `ls -la` 실행 시 `command not found: rtk` 오류. `ls`가 아닌 `rtk`가 없다는 메시지가 나옴.
-- **원인 가설**: 토큰 절약용 CLI 프록시(rtk)를 호출하도록 셸 훅이 명령을 `rtk ls`로 재작성하는데, 정작 rtk 바이너리가 설치되어 있지 않음.
-- **확인**: `command ls -la`(훅/알리아스 우회) 및 `/bin/ls -la`는 정상 동작 → `ls` 자체 문제가 아니라 재작성 계층의 문제임을 특정.
-- **해결/대안**: 실습 명령은 스크립트 파일로 실행해 재작성을 우회하고, rtk는 재설치 전까지 훅 비활성화 대상으로 기록. **교훈**: "명령이 없다"는 오류에서 없는 것이 무엇인지(원 명령 vs 프록시)를 먼저 확인할 것.
+```dockerfile
+FROM nginx:alpine
 
-### #3. 바인드 마운트 직후 응답 잘림 (truncated response)
+LABEL org.opencontainers.image.title="mission1-web"
 
-- **문제**: 호스트에서 `index.html`을 수정한 직후 첫 `curl` 응답이 `<h1>v2 - updated on hos`로 잘려서 도착 (마지막 6바이트 누락).
-- **원인 가설**: ① nginx `sendfile`이 캐시한 이전 파일 크기(23B)로 새 콘텐츠(30B)를 서빙, 또는 ② Docker Desktop(VirtioFS) 파일 공유의 메타데이터 동기화 지연.
-- **확인**: 재요청 시 `Content-Length: 30` = `wc -c` 결과(30B)와 일치하고 본문도 완전함 → 수정 직후의 일시적 크기 불일치로 특정. ([로그 05](docs/logs/05-mount-volume.md))
-- **해결/대안**: 짧은 대기 후 재요청으로 해소. 개발 환경에서 지속 발생 시 nginx 설정에 `sendfile off;`를 넣는 것이 알려진 해법(macOS/VM 바인드 마운트의 고전적 이슈).
+ENV APP_ENV=dev
+
+COPY app/ /usr/share/nginx/html/
+
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD wget -qO- http://localhost/ > /dev/null || exit 1
+```
+
+이후 이미지를 다시 빌드했다.
+
+```bash
+$ docker build -t mission1-web:1.0 .
+```
+
+### #2. 파일 권한 설정 오류로 `Permission denied` 발생
+
+- **문제**: `secret.txt`의 권한을 테스트하는 과정에서 `chmod 000`을 적용한 뒤 `cat secret.txt` 실행 시 `Permission denied` 오류가 발생.
+
+```bash
+$ chmod 000 secret.txt
+$ cat secret.txt
+cat: secret.txt: Permission denied
+```
+- **원인**: `000` 권한은 읽기(r), 쓰기(w), 실행(x) 권한을 모두 제거하므로 파일에 접근할 수 없었다.
+- **확인**: 권한을 `644`로 변경한 후 파일 내용을 정상적으로 읽을 수 있는 것을 확인했다.
+- **해결/대안**: Linux 파일 권한을 변경하기 전에 권한의 의미를 확인하고, 일반적인 텍스트 파일은 `644`, 디렉터리는 `755` 권한을 사용하도록 했다.
+
+```bash
+$ chmod 644 secret.txt
+$ cat secret.txt
+important data
+```
 
 ## 9) 증거 이미지
 
