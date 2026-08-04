@@ -16,7 +16,7 @@
 |------|-----|
 | OS | macOS 15.7.7 (Apple Silicon, arm64) |
 | Shell / 터미널 | zsh |
-| Docker | 29.6.2 (Docker Desktop for Mac, Compose v5.3.1) |
+| Docker | 29.4.0, (build 9d7ad9f) |
 | Git | 2.50.1 (Apple Git-155) |
 | 편집기 | VSCode |
 
