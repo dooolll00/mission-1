@@ -76,7 +76,7 @@ docker compose down
 |-----------|------|-----------|------|
 | 데몬 동작 | `docker info` | Server 버전/컨텍스트 응답 | [로그 03](docs/logs/03-docker-basics.md) |
 | 설치 정상 | `docker run hello-world` | "Hello from Docker!" 출력 | [로그 03](docs/logs/03-docker-basics.md) |
-| 컨테이너 수명 | `docker ps -a` 비교 | 메인 프로세스 종료 = 컨테이너 종료 | [로그 03](docs/logs/03-docker-basics.md) §5 |
+| 컨테이너 수명 | `docker ps -a` 비교 | 메인 프로세스 종료 = 컨테이너 종료 | [로그 03](docs/logs/03-docker-basics.md) |
 | 이미지 빌드 | `docker build` + `docker images` | mission1-web:1.0 생성 | [로그 04](docs/logs/04-build-run.md) |
 | 포트 매핑 | `curl -w '%{http_code}'` ×2포트 | 8080/8081 모두 HTTP 200 | [로그 04](docs/logs/04-build-run.md) |
 | 접속 화면 | 브라우저 | 페이지 렌더링 | [images/](docs/images/) |
