@@ -1,11 +1,19 @@
 # 01. 터미널 기본 조작 로그
 
-> 실행 환경: macOS 26.6 / zsh
+> 실행 환경: macOS 15.7.7/ zsh 5.9 (x86_64-apple-darwin24.0)
 > 실습 위치: `~/codyssey/practice`
 
 ## 1) 현재 위치 확인 · 디렉토리 생성 · 이동
 
 ```bash
+$ sw_vers
+ProductName:		macOS
+ProductVersion:		15.7.7
+BuildVersion:		24G720
+
+$ zsh --version
+zsh 5.9 (x86_64-apple-darwin24.0)
+
 $ pwd
 /Users/dooolll5969/Project/mission-1
 
