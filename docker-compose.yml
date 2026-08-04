@@ -1,12 +1,15 @@
+# Mission 1 보너스 — Compose 멀티 컨테이너
+# web(nginx 커스텀 이미지) + redis(보조 서비스)
 services:
   web:
     build: .
     ports:
       - "8090:80"
     environment:
-      - APP_ENV=compose
+      - APP_ENV=compose    # 환경 변수 주입 (Dockerfile의 dev 값을 덮어씀)
     depends_on:
       - redis
 
   redis:
     image: redis:7-alpine
+    # 포트를 호스트에 열지 않아도 같은 Compose 네트워크의 web에서 접근 가능
