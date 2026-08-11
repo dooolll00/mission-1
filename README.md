@@ -53,24 +53,8 @@ mission-1/
     └── images/            # 접속/연동 스크린샷
 ```
 
-## 5) 빠른 재현 방법
 
-```bash
-git clone https://github.com/newids/mission-1.git
-cd mission-1
-
-# 커스텀 이미지 빌드 및 실행
-docker build -t mission1-web:1.0 .
-docker run -d -p 8080:80 --name mission1-web-8080 mission1-web:1.0
-curl http://localhost:8080            # 또는 브라우저에서 접속
-
-# 보너스: Compose로 실행
-docker compose up -d
-curl http://localhost:8090
-docker compose down
-```
-
-## 6) 검증 방법 요약 (무엇을 어떤 명령으로 확인했는가)
+## 5) 검증 방법 요약 (무엇을 어떤 명령으로 확인했는가)
 
 | 검증 대상 | 명령 | 확인 내용 | 증거 |
 |-----------|------|-----------|------|
@@ -85,7 +69,7 @@ docker compose down
 | Git 설정 | `git config --global --list` | user/defaultBranch 설정 | [로그 06](docs/logs/06-git-setup.md) |
 | 컨테이너 간 통신 | `nc -zv redis 6379` | 서비스 이름으로 연결 성공 | [로그 07](docs/logs/07-compose-bonus.md) |
 
-## 7) 학습 정리 (과제 목표 6항목)
+## 6) 학습 정리 (과제 목표 6항목)
 
 <details>
 <summary><b>절대 경로 vs 상대 경로</b></summary>
@@ -137,7 +121,7 @@ docker compose down
 - 정리: [로그 06 §5](docs/logs/06-git-setup.md)
 </details>
 
-## 8) 트러블슈팅
+## 7) 트러블슈팅
 
 ### #1. Dockerfile 명령어를 터미널에서 실행하여 발생한 오류
 
