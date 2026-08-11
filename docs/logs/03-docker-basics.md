@@ -85,11 +85,11 @@ ubuntu:24.04         561618e2c15b        117MB         31.7MB
 
 ```bash
 $ docker run -it --name mission1-ubuntu-a ubuntu:24.04 bash
-root@dd982431ce76:/$ ls /
+root@dd982431ce76:/# ls /
 bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
-root@dd982431ce76:/$ echo 'hello from inside container'
+root@dd982431ce76:/# echo 'hello from inside container'
 hello from inside container
-root@dd982431ce76:/$ cat /etc/os-release
+root@dd982431ce76:/# cat /etc/os-release
 PRETTY_NAME="Ubuntu 24.04.4 LTS"
 NAME="Ubuntu"
 VERSION_ID="24.04"
