@@ -46,8 +46,6 @@ origin	git@github.com:dooolll00/mission-1.git (fetch)
 origin	git@github.com:dooolll00/mission-1.git (push)
 ```
 
-> 원격 인증은 HTTPS 토큰이 아닌 **SSH 키**로 이루어진다 (보너스 과제 5 충족 — `gh` 설정의 Git operations protocol: ssh). 개인키/토큰 값은 어떤 로그에도 포함하지 않았다.
-
 ## 4) VSCode ↔ GitHub 연동
 
 - VSCode 좌측 하단 계정 아이콘 → **GitHub으로 로그인** → 브라우저 OAuth 승인
